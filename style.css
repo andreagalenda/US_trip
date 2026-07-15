@@ -59,6 +59,15 @@ h1, h2, h3, h4 {
 .scroll-container {
     position: relative;
     z-index: 1;
+    pointer-events: none; /* Let clicks pass through to the map */
+}
+
+/* Make interactive elements clickable again */
+.hero-content, 
+.glass-card, 
+.day-card, 
+.scroll-indicator {
+    pointer-events: auto;
 }
 
 /* Hero Section */
@@ -394,11 +403,12 @@ h1, h2, h3, h4 {
 
 /* Car Icon */
 .car-icon {
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 40px;
+    line-height: 40px;
     text-align: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
     transition: transform 0.1s linear;
+    will-change: transform;
 }
 
 footer {

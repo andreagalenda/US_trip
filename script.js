@@ -175,9 +175,9 @@ let fullPolyline = L.polyline(initialLatLngs, {
 // Create Car Icon
 const carIcon = L.divIcon({
     className: 'car-icon',
-    html: '🚗',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
+    html: '🏎️',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20]
 });
 let carMarker = L.marker(itineraryData[0].coords, {icon: carIcon, zIndexOffset: 1000}).addTo(map);
 
