@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommy's California Roadtrip</title>
+    
+    <!-- SEO and Meta tags -->
+    <meta name="description" content="An epic 10-day road trip itinerary for Tommy's visit to California, featuring Grand Canyon, Zion, Death Valley, Yosemite, and Big Sur.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Tommy's California Adventure</h1>
+            <p class="dates">August 22 - August 31, 2026</p>
+            <div class="scroll-indicator">
+                <span>Explore the Journey</span>
+                <div class="arrow"></div>
+            </div>
+        </div>
+        <div class="hero-bg"></div>
+    </header>
+
+    <main class="container">
+        <!-- Info Panels (Considerations & To-Do) -->
+        <section class="info-panels">
+            <div class="glass-card considerations">
+                <div class="card-header">
+                    <span class="icon">💡</span>
+                    <h2>Considerations</h2>
+                </div>
+                <ul>
+                    <li><strong>Accommodation:</strong> We're going to sleep in the car or camp, no hotels/motels. I'll get a sleeping bag and pad for Tommy.</li>
+                    <li><strong>Zion Permits:</strong> If we want to hike Angels Landing in Zion, I have to apply for the permit lottery early; Riverside Walk and Emerald Pools don't need a permit.</li>
+                    <li><strong>The Long Drive:</strong> Driving directly to the Grand Canyon after JPL saves a day but means a ~7.5 hour drive. We will share the driving or take breaks.</li>
+                </ul>
+            </div>
+            
+            <div class="glass-card todo">
+                <div class="card-header">
+                    <span class="icon">✅</span>
+                    <h2>To-Do List</h2>
+                </div>
+                <ul class="checklist">
+                    <li><input type="checkbox" id="todo1"><label for="todo1">Book rental car for the whole trip starting from LAX.</label></li>
+                    <li><input type="checkbox" id="todo2"><label for="todo2">Book campgrounds (Grand Canyon, Zion, Yosemite).</label></li>
+                    <li><input type="checkbox" id="todo3"><label for="todo3">Apply for Angels Landing permit lottery.</label></li>
+                    <li><input type="checkbox" id="todo4"><label for="todo4">Reserve the JPL guided tour.</label></li>
+                    <li><input type="checkbox" id="todo5"><label for="todo5">Buy sleeping bag and sleeping pad for Tommy.</label></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Itinerary and Map Layout -->
+        <section class="itinerary-section">
+            <div class="itinerary-list" id="itinerary-list">
+                <!-- Days will be injected by JS -->
+            </div>
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="map-overlay"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with ❤️ for Tommy's Visit</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
