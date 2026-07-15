@@ -18,6 +18,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 body {
@@ -78,6 +79,7 @@ h1, h2, h3, h4 {
     justify-content: flex-start;
     position: relative;
     padding: 2rem 10%;
+    scroll-snap-align: start;
 }
 
 .hero-content {
@@ -154,6 +156,7 @@ h1, h2, h3, h4 {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
     margin-bottom: 6rem;
+    scroll-snap-align: start;
 }
 
 .glass-card {
@@ -289,6 +292,8 @@ h1, h2, h3, h4 {
     transform: translateX(-20px) scale(0.95);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     cursor: pointer;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
 }
 
 .day-card.active {
@@ -427,12 +432,13 @@ footer {
     background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
     position: relative;
     z-index: 1;
+    scroll-snap-align: end;
 }
 
 /* Responsive */
 @media (max-width: 968px) {
     .map-overlay {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 100%);
     }
     
     .hero {
@@ -444,5 +450,20 @@ footer {
     .itinerary-section {
         max-width: 100%;
         margin: 0 auto;
+    }
+
+    .itinerary-list {
+        gap: 30vh;
+    }
+
+    .day-card {
+        scroll-snap-align: end;
+        margin-bottom: 2rem;
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .day-card.active {
+        background: rgba(255, 255, 255, 0.85);
     }
 }

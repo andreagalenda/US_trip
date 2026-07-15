@@ -398,7 +398,11 @@ const observer = new IntersectionObserver((entries) => {
                     
                     map.flyTo(offsetLatLng, targetDay.zoom, { animate: true, duration: 1.5 });
                 } else {
-                    map.flyTo(targetDay.coords, targetDay.zoom, { animate: true, duration: 1.5 });
+                    const targetPoint = map.project(targetDay.coords, targetDay.zoom);
+                    targetPoint.y += window.innerHeight * 0.20; // Offset map down so car is near the top
+                    const offsetLatLng = map.unproject(targetPoint, targetDay.zoom);
+                    
+                    map.flyTo(offsetLatLng, targetDay.zoom, { animate: true, duration: 1.5 });
                 }
                 
                 setTimeout(() => markers[index].openPopup(), 500);
