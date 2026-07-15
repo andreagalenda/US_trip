@@ -138,17 +138,15 @@ const itineraryData = [
     }
 ];
 
-// Initialize Map with zoom control on the right
+// Initialize Map
 const map = L.map('map', {
     zoomControl: false,
     scrollWheelZoom: false
 }).setView([36.0, -119.0], 6);
 
-L.control.zoom({
-    position: 'bottomright'
-}).addTo(map);
+L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-// Add Light Theme Tile Layer (CartoDB Positron)
+// Add Light Theme Tile Layer
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
     subdomains: 'abcd',
@@ -164,6 +162,24 @@ const customIcon = L.divIcon({
 });
 
 const listContainer = document.getElementById('itinerary-list');
+
+// Draw initial straight lines while fetching OSRM data
+const initialLatLngs = itineraryData.map(day => day.coords);
+let fullPolyline = L.polyline(initialLatLngs, {
+    color: '#4f46e5', 
+    weight: 5,
+    opacity: 0.8,
+    dashArray: '10, 10'
+}).addTo(map);
+
+// Create Car Icon
+const carIcon = L.divIcon({
+    className: 'car-icon',
+    html: '🚗',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+});
+let carMarker = L.marker(itineraryData[0].coords, {icon: carIcon, zIndexOffset: 1000}).addTo(map);
 
 itineraryData.forEach((day, index) => {
     // Add Marker
@@ -199,124 +215,136 @@ itineraryData.forEach((day, index) => {
     listContainer.appendChild(card);
 });
 
-// Create Car Icon
-const carIcon = L.divIcon({
-    className: 'car-icon',
-    html: '🚗',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
-});
-let carMarker = null;
+// Cache card absolute positions
+const cards = Array.from(document.querySelectorAll('.day-card'));
+let cardTops = [];
+function updateCardTops() {
+    cardTops = cards.map(card => card.getBoundingClientRect().top + window.scrollY);
+}
+window.addEventListener('resize', updateCardTops);
+// Call initially and after a slight delay to ensure fonts/layout are loaded
+updateCardTops();
+setTimeout(updateCardTops, 500);
 
-// Fetch Actual Routes using OSRM
+// Route Segments Data Structure
 let routeSegments = [];
-let fullPolyline = null;
 
 async function fetchAllRoutes() {
     const promises = [];
     for (let i = 0; i < itineraryData.length - 1; i++) {
         const start = itineraryData[i].coords;
         const end = itineraryData[i+1].coords;
-        const url = `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`;
+        // removed overview=full to load faster simplified geometries
+        const url = `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?geometries=geojson`;
         
         promises.push(
             fetch(url).then(res => res.json()).then(data => {
                 if(data.routes && data.routes[0]) {
                     return data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
                 }
-                return [start, end];
+                return [start, end]; // fallback
             }).catch(() => [start, end])
         );
     }
     
-    routeSegments = await Promise.all(promises);
+    const rawSegments = await Promise.all(promises);
     
-    // Draw all segments
-    const allCoords = routeSegments.flat();
+    // Pre-calculate distances for smooth O(1) performance during scroll
+    routeSegments = rawSegments.map(latlngs => {
+        let totalDist = 0;
+        const dists = [];
+        for(let i = 0; i < latlngs.length - 1; i++) {
+            const d = map.distance(latlngs[i], latlngs[i+1]);
+            totalDist += d;
+            dists.push(d);
+        }
+        return { latlngs, dists, totalDist };
+    });
+    
+    // Replace the straight dashed line with the real smooth route
+    map.removeLayer(fullPolyline);
+    const allCoords = routeSegments.map(seg => seg.latlngs).flat();
     fullPolyline = L.polyline(allCoords, {
         color: '#4f46e5', 
         weight: 5,
         opacity: 0.8
     }).addTo(map);
 
-    // Initialize car marker at start
-    carMarker = L.marker(itineraryData[0].coords, {icon: carIcon}).addTo(map);
-    
-    // Trigger scroll event to place car correctly based on initial scroll
+    // Initial positioning
     handleScroll();
 }
 
+// Fire request for real roads instantly
 fetchAllRoutes();
 
-// Scroll animation logic
-function getPointAlongLine(latlngs, progress) {
-    if(progress <= 0) return latlngs[0];
-    if(progress >= 1) return latlngs[latlngs.length - 1];
+// Highly optimized scroll logic
+function getPointAlongSegment(seg, progress) {
+    if (progress <= 0) return seg.latlngs[0];
+    if (progress >= 1) return seg.latlngs[seg.latlngs.length - 1];
     
-    let totalDist = 0;
-    const dists = [];
-    for(let i = 0; i < latlngs.length - 1; i++) {
-        const d = map.distance(latlngs[i], latlngs[i+1]);
-        totalDist += d;
-        dists.push(d);
-    }
-    
-    const targetDist = totalDist * progress;
+    const targetDist = seg.totalDist * progress;
     let currDist = 0;
-    for(let i = 0; i < latlngs.length - 1; i++) {
-        if(currDist + dists[i] >= targetDist) {
-            const segProgress = (targetDist - currDist) / dists[i];
-            const p1 = latlngs[i], p2 = latlngs[i+1];
+    
+    for (let i = 0; i < seg.latlngs.length - 1; i++) {
+        if (currDist + seg.dists[i] >= targetDist) {
+            if (seg.dists[i] === 0) return seg.latlngs[i];
+            
+            const segProgress = (targetDist - currDist) / seg.dists[i];
+            const p1 = seg.latlngs[i], p2 = seg.latlngs[i+1];
             return [
                 p1[0] + (p2[0] - p1[0]) * segProgress,
                 p1[1] + (p2[1] - p1[1]) * segProgress
             ];
         }
-        currDist += dists[i];
+        currDist += seg.dists[i];
     }
-    return latlngs[latlngs.length - 1];
+    return seg.latlngs[seg.latlngs.length - 1];
 }
 
-const cards = Array.from(document.querySelectorAll('.day-card'));
+// Scroll Event Loop
+let ticking = false;
 
 function handleScroll() {
-    if (routeSegments.length === 0 || !carMarker) return;
+    if (routeSegments.length === 0 || !carMarker || cardTops.length === 0) return;
     
+    // Evaluate scroll compared to absolute card positions
     const scrollCenter = window.scrollY + window.innerHeight / 2;
     
     let currentIndex = -1;
     let progress = 0;
 
-    // Determine which segment we are in
-    for (let i = 0; i < cards.length - 1; i++) {
-        const currentCardTop = cards[i].offsetTop;
-        const nextCardTop = cards[i+1].offsetTop;
-        
-        if (scrollCenter >= currentCardTop && scrollCenter < nextCardTop) {
+    for (let i = 0; i < cardTops.length - 1; i++) {
+        if (scrollCenter >= cardTops[i] && scrollCenter < cardTops[i+1]) {
             currentIndex = i;
-            progress = (scrollCenter - currentCardTop) / (nextCardTop - currentCardTop);
+            progress = (scrollCenter - cardTops[i]) / (cardTops[i+1] - cardTops[i]);
             break;
         }
     }
     
     if (currentIndex === -1) {
-        if (scrollCenter < cards[0].offsetTop) {
-            // Before first card
+        if (scrollCenter < cardTops[0]) {
             carMarker.setLatLng(itineraryData[0].coords);
-        } else if (scrollCenter >= cards[cards.length - 1].offsetTop) {
-            // After last card
+        } else if (scrollCenter >= cardTops[cardTops.length - 1]) {
             carMarker.setLatLng(itineraryData[itineraryData.length - 1].coords);
         }
     } else {
-        // Move car along segment
-        const point = getPointAlongLine(routeSegments[currentIndex], progress);
+        const seg = routeSegments[currentIndex];
+        const point = getPointAlongSegment(seg, progress);
         carMarker.setLatLng(point);
     }
 }
 
-window.addEventListener('scroll', handleScroll);
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
 
-// Intersection Observer for highlighting cards and moving map
+// Intersection Observer for Highlighting Cards and Panning map
 const observerOptions = {
     root: null,
     rootMargin: '-40% 0px -40% 0px', 
@@ -330,35 +358,24 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const index = parseInt(entry.target.dataset.index);
             
-            // Highlight card
             document.querySelectorAll('.day-card').forEach(card => card.classList.remove('active'));
             entry.target.classList.add('active');
 
-            // Move Map
             if (activeIndex !== index) {
                 activeIndex = index;
                 const targetDay = itineraryData[index];
                 
-                // Offset calculation (Shift center to the right since cards are on the left)
                 if (window.innerWidth > 968) {
                     const targetPoint = map.project(targetDay.coords, targetDay.zoom);
                     targetPoint.x -= window.innerWidth * 0.25; 
                     const offsetLatLng = map.unproject(targetPoint, targetDay.zoom);
                     
-                    map.flyTo(offsetLatLng, targetDay.zoom, {
-                        animate: true,
-                        duration: 1.5
-                    });
+                    map.flyTo(offsetLatLng, targetDay.zoom, { animate: true, duration: 1.5 });
                 } else {
-                    map.flyTo(targetDay.coords, targetDay.zoom, {
-                        animate: true,
-                        duration: 1.5
-                    });
+                    map.flyTo(targetDay.coords, targetDay.zoom, { animate: true, duration: 1.5 });
                 }
                 
-                setTimeout(() => {
-                    markers[index].openPopup();
-                }, 500);
+                setTimeout(() => markers[index].openPopup(), 500);
             }
         }
     });
