@@ -8,7 +8,7 @@ const itineraryData = [
             "Pick up rental car.",
             "Drive to Pasadena, settle in, welcome dinner."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Pasadena_City_Hall_David_Wakely_%28cropped%29.jpg/800px-Pasadena_City_Hall_David_Wakely_%28cropped%29.jpg",
+        img: "images/day1.jpg",
         driveTime: null,
         overnight: "Pasadena",
         coords: [34.1478, -118.1445],
@@ -22,7 +22,7 @@ const itineraryData = [
             "Morning: Surf at Zuma Beach, Malibu.",
             "Afternoon: Venice Beach boardwalk & canals."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/MalibuAir.jpg/800px-MalibuAir.jpg",
+        img: "images/day2.jpg",
         driveTime: "1.5h driving locally",
         overnight: "Pasadena",
         coords: [34.0200, -118.6300], 
@@ -37,7 +37,7 @@ const itineraryData = [
             "Afternoon: Drive directly to Grand Canyon South Rim.",
             "Take breaks, split the drive if needed."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Site_du_JPL_en_Californie.jpg/800px-Site_du_JPL_en_Californie.jpg",
+        img: "images/day3.jpg",
         driveTime: "~480 mi / ~7h45",
         overnight: "Grand Canyon (Mather or Desert View)",
         coords: [36.0544, -112.1401],
@@ -52,7 +52,7 @@ const itineraryData = [
             "Explore Desert View Drive, rim trail.",
             "Evening: Start driving towards Zion, sleep close to Zion (e.g. Kanab or Mt Carmel Junction)."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Canyon_River_Tree_%28165872763%29.jpeg/800px-Canyon_River_Tree_%28165872763%29.jpeg",
+        img: "images/day4.jpg",
         driveTime: "~140 mi / ~3h",
         overnight: "Near Zion (Kanab/Mt Carmel Area)",
         coords: [37.0475, -112.5263], // Kanab, UT
@@ -67,7 +67,7 @@ const itineraryData = [
             "Full Day: Hike Riverside Walk, Emerald Pools, or The Narrows.",
             "Enjoy the majestic canyon views."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Zion_angels_landing_view.jpg/800px-Zion_angels_landing_view.jpg",
+        img: "images/day5.jpg",
         driveTime: "~40 mi / ~1h locally",
         overnight: "Zion National Park (Watchman/South Camp)",
         coords: [37.2982, -113.0263],
@@ -82,7 +82,7 @@ const itineraryData = [
             "Afternoon: Drive to Death Valley NP.",
             "Sunset at Zabriskie Point or Badwater Basin."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Death_Valley_Zabriskie_Point_view_%2814838634842%29.jpg/800px-Death_Valley_Zabriskie_Point_view_%2814838634842%29.jpg",
+        img: "images/day6.jpg",
         driveTime: "~290 mi / ~4h30",
         overnight: "Death Valley (Furnace Creek Camp)",
         coords: [36.4208, -116.8101], // Zabriskie Point
@@ -96,7 +96,7 @@ const itineraryData = [
             "Morning: Sunrise in Death Valley, short exploration.",
             "Afternoon: Scenic drive to Yosemite NP via Tioga Pass."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Tunnel_View%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg/800px-Tunnel_View%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg",
+        img: "images/day7.jpg",
         driveTime: "~300 mi / ~5h",
         overnight: "Yosemite National Park (Pines Camp)",
         coords: [37.8651, -119.3563], // Tioga Pass / Tuolumne Meadows
@@ -110,7 +110,7 @@ const itineraryData = [
             "Morning/Early Afternoon: Day in Yosemite Valley (Tunnel View, El Capitan, Yosemite Falls).",
             "Late Afternoon: Drive to Big Sur coast."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg/800px-Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg",
+        img: "images/day8.jpg",
         driveTime: "~250 mi / ~5h",
         overnight: "Big Sur (Pfeiffer/Kirk Creek Camp)",
         coords: [36.2704, -121.8081], // Big Sur Coast
@@ -125,7 +125,7 @@ const itineraryData = [
             "Afternoon: Drive the Pacific Coast Highway back home.",
             "Evening: Relax and celebrate!"
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bixby_Creek_Bridge_2014.jpg/800px-Bixby_Creek_Bridge_2014.jpg",
+        img: "images/day9.jpg",
         driveTime: "~300 mi / ~5h",
         overnight: "Pasadena",
         coords: [36.3714, -121.9017], // Bixby Bridge
@@ -140,7 +140,7 @@ const itineraryData = [
             "Afternoon: Drive to LAX, return the rental car.",
             "Evening: Flight back to Italy."
         ],
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Theme_Building_at_Los_Angeles_International_Airport_%28LAX%29_by_William_Pereira.jpg/800px-Theme_Building_at_Los_Angeles_International_Airport_%28LAX%29_by_William_Pereira.jpg",
+        img: "images/day10.jpg",
         driveTime: "~45 min locally",
         overnight: "Plane",
         coords: [33.9416, -118.4085], // LAX
