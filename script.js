@@ -8,10 +8,11 @@ const itineraryData = [
             "Pick up rental car.",
             "Drive to Pasadena, settle in, welcome dinner."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Pasadena_City_Hall_David_Wakely_%28cropped%29.jpg/800px-Pasadena_City_Hall_David_Wakely_%28cropped%29.jpg",
         driveTime: null,
         overnight: "Pasadena",
         coords: [34.1478, -118.1445],
-        zoom: 11
+        zoom: 7
     },
     {
         day: 2,
@@ -21,10 +22,11 @@ const itineraryData = [
             "Morning: Surf at Zuma Beach, Malibu.",
             "Afternoon: Venice Beach boardwalk & canals."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/MalibuAir.jpg/800px-MalibuAir.jpg",
         driveTime: "1.5h driving locally",
         overnight: "Pasadena",
         coords: [34.0200, -118.6300], 
-        zoom: 10
+        zoom: 7
     },
     {
         day: 3,
@@ -35,10 +37,11 @@ const itineraryData = [
             "Afternoon: Drive directly to Grand Canyon South Rim.",
             "Take breaks, split the drive if needed."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Site_du_JPL_en_Californie.jpg/800px-Site_du_JPL_en_Californie.jpg",
         driveTime: "~480 mi / ~7h45",
         overnight: "Grand Canyon (Mather or Desert View)",
         coords: [36.0544, -112.1401],
-        zoom: 9
+        zoom: 7
     },
     {
         day: 4,
@@ -49,10 +52,11 @@ const itineraryData = [
             "Explore Desert View Drive, rim trail.",
             "Evening: Start driving towards Zion, sleep close to Zion (e.g. Kanab or Mt Carmel Junction)."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Canyon_River_Tree_%28165872763%29.jpeg/800px-Canyon_River_Tree_%28165872763%29.jpeg",
         driveTime: "~140 mi / ~3h",
         overnight: "Near Zion (Kanab/Mt Carmel Area)",
         coords: [37.0475, -112.5263], // Kanab, UT
-        zoom: 10
+        zoom: 7
     },
     {
         day: 5,
@@ -63,10 +67,11 @@ const itineraryData = [
             "Full Day: Hike Riverside Walk, Emerald Pools, or The Narrows.",
             "Enjoy the majestic canyon views."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Zion_angels_landing_view.jpg/800px-Zion_angels_landing_view.jpg",
         driveTime: "~40 mi / ~1h locally",
         overnight: "Zion National Park (Watchman/South Camp)",
         coords: [37.2982, -113.0263],
-        zoom: 11
+        zoom: 7
     },
     {
         day: 6,
@@ -77,10 +82,11 @@ const itineraryData = [
             "Afternoon: Drive to Death Valley NP.",
             "Sunset at Zabriskie Point or Badwater Basin."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Death_Valley_Zabriskie_Point_view_%2814838634842%29.jpg/800px-Death_Valley_Zabriskie_Point_view_%2814838634842%29.jpg",
         driveTime: "~290 mi / ~4h30",
         overnight: "Death Valley (Furnace Creek Camp)",
         coords: [36.4208, -116.8101], // Zabriskie Point
-        zoom: 10
+        zoom: 7
     },
     {
         day: 7,
@@ -90,10 +96,11 @@ const itineraryData = [
             "Morning: Sunrise in Death Valley, short exploration.",
             "Afternoon: Scenic drive to Yosemite NP via Tioga Pass."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Tunnel_View%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg/800px-Tunnel_View%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg",
         driveTime: "~300 mi / ~5h",
         overnight: "Yosemite National Park (Pines Camp)",
         coords: [37.8651, -119.3563], // Tioga Pass / Tuolumne Meadows
-        zoom: 9
+        zoom: 7
     },
     {
         day: 8,
@@ -103,10 +110,11 @@ const itineraryData = [
             "Morning/Early Afternoon: Day in Yosemite Valley (Tunnel View, El Capitan, Yosemite Falls).",
             "Late Afternoon: Drive to Big Sur coast."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg/800px-Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg",
         driveTime: "~250 mi / ~5h",
         overnight: "Big Sur (Pfeiffer/Kirk Creek Camp)",
         coords: [36.2704, -121.8081], // Big Sur Coast
-        zoom: 9
+        zoom: 7
     },
     {
         day: 9,
@@ -117,10 +125,11 @@ const itineraryData = [
             "Afternoon: Drive the Pacific Coast Highway back home.",
             "Evening: Relax and celebrate!"
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bixby_Creek_Bridge_2014.jpg/800px-Bixby_Creek_Bridge_2014.jpg",
         driveTime: "~300 mi / ~5h",
         overnight: "Pasadena",
         coords: [36.3714, -121.9017], // Bixby Bridge
-        zoom: 9
+        zoom: 7
     },
     {
         day: 10,
@@ -131,10 +140,11 @@ const itineraryData = [
             "Afternoon: Drive to LAX, return the rental car.",
             "Evening: Flight back to Italy."
         ],
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Theme_Building_at_Los_Angeles_International_Airport_%28LAX%29_by_William_Pereira.jpg/800px-Theme_Building_at_Los_Angeles_International_Airport_%28LAX%29_by_William_Pereira.jpg",
         driveTime: "~45 min locally",
         overnight: "Plane",
         coords: [33.9416, -118.4085], // LAX
-        zoom: 13
+        zoom: 7
     }
 ];
 
@@ -142,13 +152,19 @@ const itineraryData = [
 const map = L.map('map', {
     zoomControl: false,
     scrollWheelZoom: false
-}).setView([36.0, -119.0], 6);
+}).setView([36.5, -119.5], 5); // Default zoom further away to show the whole trip
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-// Add Light Theme Tile Layer
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+// Add Satellite Tile Layer (Esri World Imagery)
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EAP, and the GIS User Community',
+    maxZoom: 18
+}).addTo(map);
+
+// Add an optional Labels layer over the satellite
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; CARTO',
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(map);
@@ -197,8 +213,10 @@ itineraryData.forEach((day, index) => {
     let driveTimeHtml = day.driveTime 
         ? `<div class="drive-time">🚗 ${day.driveTime}</div>` 
         : '';
+    let imageHtml = day.img ? `<img src="${day.img}" alt="${day.title}" class="day-image">` : '';
 
     card.innerHTML = `
+        ${imageHtml}
         <div class="day-header">
             <h3 class="day-title">Day ${day.day}: ${day.title}</h3>
             <span class="day-date">${day.date}</span>
@@ -391,6 +409,16 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 cards.forEach(card => observer.observe(card));
+
+// Observe the hero section to zoom out when scrolling to top
+const heroObserver = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting) {
+        activeIndex = -1;
+        document.querySelectorAll('.day-card').forEach(card => card.classList.remove('active'));
+        map.flyTo([36.5, -119.5], 5, { animate: true, duration: 1.5 });
+    }
+}, { threshold: 0.3 });
+heroObserver.observe(document.querySelector('.hero'));
 
 document.querySelector('.scroll-indicator').addEventListener('click', () => {
     document.querySelector('.info-panels').scrollIntoView({ behavior: 'smooth' });

@@ -267,6 +267,15 @@ h1, h2, h3, h4 {
     padding-bottom: 30vh;
 }
 
+.day-image {
+    width: calc(100% + 5rem);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+    display: block;
+}
+
 .day-card {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
