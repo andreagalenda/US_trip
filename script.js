@@ -212,6 +212,15 @@ itineraryData.forEach((day, index) => {
         </div>
     `;
 
+    // Click to scroll to this card
+    card.addEventListener('click', () => {
+        const targetScroll = card.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2 + card.offsetHeight / 2;
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
+    });
+
     listContainer.appendChild(card);
 });
 

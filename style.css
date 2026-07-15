@@ -270,6 +270,7 @@ h1, h2, h3, h4 {
     opacity: 0.5;
     transform: translateX(-20px) scale(0.95);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    cursor: pointer;
 }
 
 .day-card.active {
