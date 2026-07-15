@@ -20,7 +20,8 @@ const itineraryData = [
         title: "Surf & Beach Vibes",
         activities: [
             "Morning: Surf at Zuma Beach, Malibu.",
-            "Afternoon: Venice Beach boardwalk & canals."
+            "Afternoon: Venice Beach boardwalk & canals.",
+            "Sunset: Griffith observatory."
         ],
         img: "images/day2.jpg",
         driveTime: "1.5h driving locally",
@@ -34,8 +35,7 @@ const itineraryData = [
         title: "Science & The Long Drive",
         activities: [
             "Morning: JPL guided tour in Pasadena.",
-            "Afternoon: Drive directly to Grand Canyon South Rim.",
-            "Take breaks, split the drive if needed."
+            "Afternoon: Drive directly to Grand Canyon South Rim."
         ],
         img: "images/day3.jpg",
         driveTime: "~480 mi / ~7h45",
@@ -48,7 +48,7 @@ const itineraryData = [
         date: "Aug 25 (Tue)",
         title: "Grand Canyon & Drive to Zion",
         activities: [
-            "Morning/Afternoon: Full day at Grand Canyon South Rim.",
+            "Morning/Afternoon: Hike at Grand Canyon South Rim.",
             "Explore Desert View Drive, rim trail.",
             "Evening: Start driving towards Zion, sleep close to Zion (e.g. Kanab or Mt Carmel Junction)."
         ],
@@ -64,8 +64,7 @@ const itineraryData = [
         title: "Full Day in Zion National Park",
         activities: [
             "Morning: Head into Zion early.",
-            "Full Day: Hike Riverside Walk, Emerald Pools, or The Narrows.",
-            "Enjoy the majestic canyon views."
+            "Full Day: Angel's landing or The Narrows."
         ],
         img: "images/day5.jpg",
         driveTime: "~40 mi / ~1h locally",
@@ -78,7 +77,7 @@ const itineraryData = [
         date: "Aug 27 (Thu)",
         title: "Zion & Death Valley",
         activities: [
-            "Morning: Hike Angels Landing (if permit won) or explore more of Zion.",
+            "Morning: Hike Angels Landing (if not day 5) or The Narrows or explore more of Zion (if we don't win the permit).",
             "Afternoon: Drive to Death Valley NP.",
             "Sunset at Zabriskie Point or Badwater Basin."
         ],
@@ -107,7 +106,7 @@ const itineraryData = [
         date: "Aug 29 (Sat)",
         title: "Yosemite Valley & Big Sur",
         activities: [
-            "Morning/Early Afternoon: Day in Yosemite Valley (Tunnel View, El Capitan, Yosemite Falls).",
+            "Morning/Early Afternoon: Day in Yosemite Valley (Tunnel View, El Capitan, Yosemite Falls, Taft Point).",
             "Late Afternoon: Drive to Big Sur coast."
         ],
         img: "images/day8.jpg",
@@ -123,7 +122,7 @@ const itineraryData = [
         activities: [
             "Morning: Walk around Big Sur, see Bixby Bridge and McWay Falls.",
             "Afternoon: Drive the Pacific Coast Highway back home.",
-            "Evening: Relax and celebrate!"
+            "Evening: Probably party and say goodbye to friends!"
         ],
         img: "images/day9.jpg",
         driveTime: "~300 mi / ~5h",
