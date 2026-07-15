@@ -1,13 +1,13 @@
 :root {
-    --bg-primary: #0a0a0f;
-    --text-primary: #f0f0f5;
-    --text-secondary: #a0a0b5;
-    --accent-1: #6366f1; /* Indigo */
-    --accent-2: #ec4899; /* Pink */
+    --bg-primary: #f8f9fc;
+    --text-primary: #1e1e2d;
+    --text-secondary: #5a5a72;
+    --accent-1: #4f46e5; /* Indigo */
+    --accent-2: #db2777; /* Pink */
     --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    --glass-bg: rgba(10, 10, 15, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -25,7 +25,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    background-color: #000;
+    background-color: var(--bg-primary);
 }
 
 h1, h2, h3, h4 {
@@ -41,7 +41,7 @@ h1, h2, h3, h4 {
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    background: #1a1a2e;
+    background: #e5e5e5;
 }
 
 .map-overlay {
@@ -51,7 +51,7 @@ h1, h2, h3, h4 {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background: linear-gradient(to right, rgba(10, 10, 15, 0.9) 0%, rgba(10, 10, 15, 0.4) 50%, rgba(10, 10, 15, 0) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
 }
 
@@ -73,12 +73,13 @@ h1, h2, h3, h4 {
 
 .hero-content {
     max-width: 600px;
-    background: rgba(10, 10, 15, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 3rem;
     border-radius: 24px;
     border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .hero h1 {
@@ -93,24 +94,27 @@ h1, h2, h3, h4 {
 
 .hero .dates {
     font-size: 1.2rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 2rem;
+    font-weight: 600;
 }
 
 .scroll-indicator {
     display: flex;
     align-items: center;
     gap: 15px;
-    opacity: 0.8;
+    opacity: 0.9;
     animation: pulseGlow 2s infinite alternate;
     cursor: pointer;
+    color: var(--accent-1);
+    font-weight: 600;
 }
 
 @keyframes pulseGlow {
-    0% { opacity: 0.6; text-shadow: 0 0 10px rgba(255,255,255,0); }
-    100% { opacity: 1; text-shadow: 0 0 10px rgba(236, 72, 153, 0.5); }
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
 }
 
 .arrow {
@@ -156,7 +160,7 @@ h1, h2, h3, h4 {
 
 .glass-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(255,255,255,0.25);
+    border-color: rgba(0,0,0,0.15);
 }
 
 .card-header {
@@ -172,7 +176,7 @@ h1, h2, h3, h4 {
 
 .card-header h2 {
     font-size: 1.8rem;
-    color: white;
+    color: var(--text-primary);
 }
 
 .considerations ul {
@@ -225,13 +229,13 @@ h1, h2, h3, h4 {
 
 .checklist input:checked + label {
     text-decoration: line-through;
-    color: #555566;
+    color: #a0a0b5;
 }
 
 .campgrounds-list {
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px dashed var(--glass-border);
+    border-top: 1px dashed rgba(0,0,0,0.1);
 }
 
 .campgrounds-list h3 {
@@ -243,19 +247,19 @@ h1, h2, h3, h4 {
 /* Itinerary Layout */
 .itinerary-section {
     position: relative;
-    max-width: 600px; /* Limit width so it doesn't cover the whole map */
-    margin-left: 0; /* Keep it on the left */
+    max-width: 600px; /* Keep it on the left */
+    margin-left: 0;
 }
 
 .itinerary-list {
     display: flex;
     flex-direction: column;
-    gap: 4rem; /* More space to make scrolling distinct per day */
-    padding-bottom: 20vh;
+    gap: 4rem; 
+    padding-bottom: 30vh;
 }
 
 .day-card {
-    background: rgba(10, 10, 15, 0.75);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
@@ -263,16 +267,17 @@ h1, h2, h3, h4 {
     padding: 2.5rem;
     position: relative;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0.4;
-    transform: translateX(-30px) scale(0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0.5;
+    transform: translateX(-20px) scale(0.95);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .day-card.active {
     opacity: 1;
     transform: translateX(0) scale(1);
-    border-left: 4px solid var(--accent-1);
-    background: rgba(15, 15, 25, 0.85);
+    border-left: 5px solid var(--accent-1);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--glass-shadow);
 }
 
 .day-header {
@@ -280,7 +285,7 @@ h1, h2, h3, h4 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     padding-bottom: 1rem;
 }
 
@@ -293,7 +298,7 @@ h1, h2, h3, h4 {
     color: var(--accent-2);
     font-weight: 600;
     font-family: 'Outfit', sans-serif;
-    background: rgba(236, 72, 153, 0.1);
+    background: rgba(219, 39, 119, 0.1);
     padding: 0.4rem 1rem;
     border-radius: 20px;
 }
@@ -326,70 +331,80 @@ h1, h2, h3, h4 {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(99, 102, 241, 0.1);
-    color: #818cf8;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--accent-1);
     padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     margin-top: 1.5rem;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(79, 70, 229, 0.2);
 }
 
 .overnight {
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px dashed var(--glass-border);
+    border-top: 1px dashed rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 600;
 }
 
-/* Custom map popup styles */
+/* Custom map popup styles - Light theme */
 .leaflet-popup-content-wrapper {
-    background: rgba(20, 20, 30, 0.9) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(8px);
     color: var(--text-primary) !important;
     border-radius: 12px !important;
-    border: 1px solid var(--accent-1) !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
 }
 .leaflet-popup-tip {
-    background: rgba(20, 20, 30, 0.9) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
 }
 .leaflet-popup-content h3 {
     margin: 0 0 5px 0 !important;
     font-family: 'Outfit', sans-serif;
-    color: var(--accent-2) !important;
+    color: var(--accent-1) !important;
 }
 .leaflet-popup-content p {
     margin: 0 !important;
-    color: var(--text-primary) !important;
+    color: var(--text-secondary) !important;
 }
 
-/* Leaflet Dark Theme Adjustments */
+/* Leaflet Light Theme Adjustments */
 .leaflet-container {
     font-family: 'Inter', sans-serif;
 }
 .leaflet-control-zoom {
     border: none !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
 }
 .leaflet-control-zoom a {
-    background-color: rgba(20, 20, 30, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
     color: var(--text-primary) !important;
     border: 1px solid var(--glass-border) !important;
-    backdrop-filter: blur(5px);
 }
 .leaflet-control-zoom a:hover {
-    background-color: var(--accent-1) !important;
+    background-color: var(--bg-primary) !important;
+}
+
+/* Car Icon */
+.car-icon {
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: transform 0.1s linear;
 }
 
 footer {
     text-align: center;
     padding: 4rem;
     color: var(--text-secondary);
-    background: linear-gradient(to top, rgba(10,10,15,0.9), transparent);
+    background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
     position: relative;
     z-index: 1;
 }
@@ -397,7 +412,7 @@ footer {
 /* Responsive */
 @media (max-width: 968px) {
     .map-overlay {
-        background: linear-gradient(to bottom, rgba(10, 10, 15, 0.8) 0%, rgba(10, 10, 15, 0.3) 100%);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
     }
     
     .hero {
@@ -409,13 +424,5 @@ footer {
     .itinerary-section {
         max-width: 100%;
         margin: 0 auto;
-    }
-    
-    .day-card {
-        transform: translateY(20px) scale(0.95);
-    }
-    
-    .day-card.active {
-        transform: translateY(0) scale(1);
     }
 }
