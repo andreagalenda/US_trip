@@ -23,7 +23,7 @@ const itineraryData = [
         ],
         driveTime: "1.5h driving locally",
         overnight: "Pasadena",
-        coords: [34.0200, -118.6300], // Malibuish
+        coords: [34.0200, -118.6300], 
         zoom: 10
     },
     {
@@ -36,34 +36,35 @@ const itineraryData = [
             "Take breaks, split the drive if needed."
         ],
         driveTime: "~480 mi / ~7h45",
-        overnight: "Grand Canyon (Camp/Car)",
+        overnight: "Grand Canyon (Mather or Desert View)",
         coords: [36.0544, -112.1401],
         zoom: 9
     },
     {
         day: 4,
         date: "Aug 25 (Tue)",
-        title: "Grand Canyon",
+        title: "Grand Canyon & Drive to Zion",
         activities: [
-            "Full day at Grand Canyon South Rim.",
+            "Morning/Afternoon: Full day at Grand Canyon South Rim.",
             "Explore Desert View Drive, rim trail.",
-            "Enjoy the sunset at Mather Point."
+            "Evening: Start driving towards Zion, sleep close to Zion (e.g. Kanab or Mt Carmel Junction)."
         ],
-        driveTime: null,
-        overnight: "Grand Canyon (Camp/Car)",
-        coords: [36.0604, -112.1091], // Mather Point
-        zoom: 12
+        driveTime: "~140 mi / ~3h",
+        overnight: "Near Zion (Kanab/Mt Carmel Area)",
+        coords: [37.0475, -112.5263], // Kanab, UT
+        zoom: 10
     },
     {
         day: 5,
         date: "Aug 26 (Wed)",
-        title: "To Zion National Park",
+        title: "Full Day in Zion National Park",
         activities: [
-            "Morning: Drive to Zion NP.",
-            "Afternoon: Hike Riverside Walk, Emerald Pools, or The Narrows."
+            "Morning: Head into Zion early.",
+            "Full Day: Hike Riverside Walk, Emerald Pools, or The Narrows.",
+            "Enjoy the majestic canyon views."
         ],
-        driveTime: "~260 mi / ~4h30",
-        overnight: "Zion National Park (Camp/Car)",
+        driveTime: "~40 mi / ~1h locally",
+        overnight: "Zion National Park (Watchman/South Camp)",
         coords: [37.2982, -113.0263],
         zoom: 11
     },
@@ -72,12 +73,12 @@ const itineraryData = [
         date: "Aug 27 (Thu)",
         title: "Zion & Death Valley",
         activities: [
-            "Morning: Hike Angels Landing (if permit won).",
+            "Morning: Hike Angels Landing (if permit won) or explore more of Zion.",
             "Afternoon: Drive to Death Valley NP.",
             "Sunset at Zabriskie Point or Badwater Basin."
         ],
         driveTime: "~290 mi / ~4h30",
-        overnight: "Death Valley (Camp/Car)",
+        overnight: "Death Valley (Furnace Creek Camp)",
         coords: [36.4208, -116.8101], // Zabriskie Point
         zoom: 10
     },
@@ -90,8 +91,8 @@ const itineraryData = [
             "Afternoon: Scenic drive to Yosemite NP via Tioga Pass."
         ],
         driveTime: "~300 mi / ~5h",
-        overnight: "Yosemite National Park (Camp/Car)",
-        coords: [37.8651, -119.3563], // Tioga Pass / Tuolumne Meadows area
+        overnight: "Yosemite National Park (Pines Camp)",
+        coords: [37.8651, -119.3563], // Tioga Pass / Tuolumne Meadows
         zoom: 9
     },
     {
@@ -103,7 +104,7 @@ const itineraryData = [
             "Late Afternoon: Drive to Big Sur coast."
         ],
         driveTime: "~250 mi / ~5h",
-        overnight: "Big Sur (Camp/Car)",
+        overnight: "Big Sur (Pfeiffer/Kirk Creek Camp)",
         coords: [36.2704, -121.8081], // Big Sur Coast
         zoom: 9
     },
@@ -137,40 +138,37 @@ const itineraryData = [
     }
 ];
 
-// Initialize Map
+// Initialize Map with zoom control on the right
 const map = L.map('map', {
-    zoomControl: false // Move zoom control if needed
-}).setView([36.0, -119.0], 6); // Default view over California
+    zoomControl: false,
+    scrollWheelZoom: false // Disable scroll zoom so user can scroll the page
+}).setView([36.0, -119.0], 6);
 
 L.control.zoom({
     position: 'bottomright'
 }).addTo(map);
 
-// Add Dark Matter Tile Layer from CartoDB
+// Add Dark Matter Tile Layer
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(map);
 
-// Markers array to keep track of them
 const markers = [];
-
-// Create a custom icon
 const customIcon = L.divIcon({
     className: 'custom-div-icon',
-    html: `<div style="background-color: #ec4899; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px #ec4899;"></div>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7]
+    html: `<div style="background-color: #ec4899; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 15px #ec4899;"></div>`,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8]
 });
 
-// Render Itinerary Cards
 const listContainer = document.getElementById('itinerary-list');
 
 itineraryData.forEach((day, index) => {
     // Add Marker
     const marker = L.marker(day.coords, {icon: customIcon}).addTo(map);
-    marker.bindPopup(`<h3>Day ${day.day}: ${day.title}</h3><p>${day.date}</p>`);
+    marker.bindPopup(`<h3>Day ${day.day}</h3><p>${day.title}</p>`);
     markers.push(marker);
 
     // Create Card
@@ -180,7 +178,6 @@ itineraryData.forEach((day, index) => {
     card.dataset.index = index;
 
     let activitiesHtml = day.activities.map(act => `<li>${act}</li>`).join('');
-    
     let driveTimeHtml = day.driveTime 
         ? `<div class="drive-time">🚗 ${day.driveTime}</div>` 
         : '';
@@ -202,19 +199,19 @@ itineraryData.forEach((day, index) => {
     listContainer.appendChild(card);
 });
 
-// Draw a line connecting the stops
+// Draw a connecting line
 const latlngs = itineraryData.map(day => day.coords);
-const polyline = L.polyline(latlngs, {
+L.polyline(latlngs, {
     color: '#6366f1', 
-    weight: 3,
-    dashArray: '10, 10',
-    opacity: 0.7
+    weight: 4,
+    dashArray: '10, 15',
+    opacity: 0.6
 }).addTo(map);
 
 // Intersection Observer for scroll animations
 const observerOptions = {
     root: null,
-    rootMargin: '-20% 0px -40% 0px', // Trigger when card is mostly in middle of screen
+    rootMargin: '-30% 0px -40% 0px', // Trigger when card is in the middle 30% of viewport
     threshold: 0
 };
 
@@ -225,33 +222,47 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const index = parseInt(entry.target.dataset.index);
             
-            // Remove active class from all
+            // Highlight card
             document.querySelectorAll('.day-card').forEach(card => card.classList.remove('active'));
-            // Add to current
             entry.target.classList.add('active');
 
-            // Fly to marker if different
+            // Move Map
             if (activeIndex !== index) {
                 activeIndex = index;
                 const targetDay = itineraryData[index];
                 
-                map.flyTo(targetDay.coords, targetDay.zoom, {
-                    animate: true,
-                    duration: 1.5
-                });
+                // Offset calculation (Shift center to the right since cards are on the left)
+                // This is a neat trick: if window width is large, we offset the target pixel.
+                if (window.innerWidth > 968) {
+                    const targetPoint = map.project(targetDay.coords, targetDay.zoom);
+                    // Offset by about 25% of window width to the right
+                    targetPoint.x -= window.innerWidth * 0.25; 
+                    const offsetLatLng = map.unproject(targetPoint, targetDay.zoom);
+                    
+                    map.flyTo(offsetLatLng, targetDay.zoom, {
+                        animate: true,
+                        duration: 1.5
+                    });
+                } else {
+                    map.flyTo(targetDay.coords, targetDay.zoom, {
+                        animate: true,
+                        duration: 1.5
+                    });
+                }
                 
-                markers[index].openPopup();
+                // Open popup after fly animation starts
+                setTimeout(() => {
+                    markers[index].openPopup();
+                }, 500);
             }
         }
     });
 }, observerOptions);
 
-// Observe all cards
 document.querySelectorAll('.day-card').forEach(card => {
     observer.observe(card);
 });
 
-// Smooth scroll arrow
 document.querySelector('.scroll-indicator').addEventListener('click', () => {
     document.querySelector('.info-panels').scrollIntoView({ behavior: 'smooth' });
 });
